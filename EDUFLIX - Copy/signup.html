@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduFlix - Sign Up</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="eduflix.png">
+  <link rel="stylesheet" href="logstyle.css" />
+</head>
+<body>
+  <div class="signup-wrapper">
+    <div class="signup-container">
+      <div class="logo-container">
+        <img src="eduflix.png" alt="EduFlix Logo" class="logo">
+      </div>
+      <h1>Create Account</h1>
+      <form action="/signup" method="POST">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+        <button type="submit">Sign Up</button>
+      </form>
+      <div class="signup-links">
+        <p>Already have an account? <a href="login.html">Login</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

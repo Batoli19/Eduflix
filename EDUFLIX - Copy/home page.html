@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduFlix</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="eduflix.png">
+  
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #121212;
+      color: #f4f4f4;
+      transition: background 0.3s ease, color 0.3s;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(to right, #000, #1a1a1a);
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(37, 117, 252, 0.3);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo */
+    .logo img {
+      width: 40px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Glowing Search Bar */
+    .search-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .search-container input {
+      width: 60%;
+      padding: 10px;
+      border-radius: 20px;
+      border: 2px solid #2575fc;
+      outline: none;
+      font-size: 1em;
+      background: #1e1e1e;
+      color: white;
+      transition: 0.3s ease;
+    }
+
+    .search-container input:focus {
+      box-shadow: 0 0 15px rgba(37, 117, 252, 0.5);
+    }
+
+    .search-container button {
+      padding: 10px 15px;
+      border-radius: 20px;
+      border: none;
+      background: #2575fc;
+      color: white;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: 0.3s ease;
+    }
+
+    .search-container button:hover {
+      background: #1a5ed9;
+      transform: scale(1.1);
+    }
+
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      background: #222;
+      padding-top: 60px;
+      transition: left 0.3s ease;
+    }
+
+    #sidebar nav a {
+      display: block;
+      padding: 15px;
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    #sidebar nav a:hover {
+      background: #2575fc;
+    }
+
+    /* Categories */
+    .categories {
+      background: #1f1f1f;
+      padding: 15px 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .categories-grid {
+      display: flex;
+      gap: 10px;
+    }
+
+    .category-card {
+      display: inline-block;
+      padding: 8px 12px;
+      background: #222;
+      border: 2px solid #2575fc;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: 600;
+      color: #f4f4f4;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s;
+    }
+
+    .category-card:hover {
+      background: #2575fc;
+      transform: scale(1.05);
+    }
+
+    /* Video Grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    /* Video Cards */
+    .video-thumbnail {
+  position: relative;
+}
+
+.video-duration {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 3px 6px;
+    font-size: 12px;
+    border-radius: 4px;
+    display: block; /* Ensure it always appears */
+}
+
+
+    .video-card {
+      background: #1e1e1e;
+      border: 2px solid #2575fc;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: scale(1.05);
+    }
+
+    .video-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 2px solid #2575fc;
+    }
+
+    .video-info {
+      padding: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 25px;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider::before {
+    transform: translateX(24px);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <div class="logo">
+        <img src="eduflix.png" alt="EduFlix Logo">
+      </div>
+      <div class="search-container">
+        <form action="/search" method="GET">
+          <input type="text" name="query" placeholder="Search videos..." required>
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <div class="user-links">
+        <a href="Login.html">Login</a> / <a href="Signup.html">Signup</a>
+      </div>
+      
+    </div>
+  </header>
+  <label class="switch">
+    <input type="checkbox" id="themeToggle">
+    <span class="slider round"></span>
+</label>
+
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <button id="close-sidebar">✖</button>
+    <nav>
+      <a href="home page.html">Home</a>
+      <a href="anlytics.html">Analytics</a>
+      <a href="dashboard.html">Dashboard</a>
+      
+      <a href="settings.html">Settings</a>
+    </nav>
+  </aside>
+
+  <button id="menu-btn">☰</button>
+
+  <!-- Categories -->
+  <section class="categories">
+    <div class="categories-grid">
+      
+    <div class="categories-grid">
+      <div class="category-card"><a href="#">All</a></div>
+      <div class="category-card"><a href="#">Education</a></div>
+      <div class="category-card"><a href="#">Technology</a></div>
+      <div class="category-card"><a href="#">Tutorials</a></div>
+      <div class="category-card"><a href="#">Entertainment</a></div>
+      <div class="category-card"><a href="#">Lifestyle</a></div>
+      <div class="category-card"><a href="#">Science</a></div>
+      <div class="category-card"><a href="#">Mathematics</a></div>
+      <div class="category-card"><a href="#">Programming</a></div>
+      <div class="category-card"><a href="#">Business</a></div>
+      <div class="category-card"><a href="#">Health & Fitness</a></div>
+      <div class="category-card"><a href="#">History</a></div>
+      <div class="category-card"><a href="#">Sports</a></div>
+      <div class="category-card"><a href="#">Cooking</a></div>
+      <div class="category-card"><a href="#">Personal Finance</a></div>
+    </div>
+  </section>
+
+  <!-- Recommended Videos -->
+  <section class="recommended">
+    
+    <div class="video-grid">
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Thumbnail.png" alt="Video 1 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Sample Video 1</h3>
+            <p class="channel-name">Channel Name</p>
+            <p class="video-stats">1.2M views • 2 days ago</p>
+            <span class="video-duration">12:45</span> <!-- Video length -->
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Thumbnail2.png" alt="Video 2 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Another Video</h3>
+            <p class="channel-name">Another Channel</p>
+            <p class="video-stats">850K views • 1 week ago</p>
+            <span class="video-duration">8:05</span> <!-- Video length -->
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="ee.png" alt="Video 3 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Learning Node</h3>
+            <p class="channel-name">Tech Guru</p>
+            <p class="video-stats">540K views • 3 weeks ago</p>
+            <span class="video-duration">10:43</span> <!-- Video length -->
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Brown Good Friday YouTube Thumbnail.png" alt="Video 4 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Tech Innovations</h3>
+            <p class="channel-name">Innovate Now</p>
+            <p class="video-stats">2M views • 1 month ago</p>
+            <span class="video-duration">20:05</span> <!-- Video length -->
+          </div>
+        </a>
+      </div>
+    </div>
+    
+    <div class="video-grid">
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Neon Green Dark Modern Fitness YouTube Thumbnail.png" alt="Video 1 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Sample Video 1</h3>
+            <p class="channel-name">Channel Name</p>
+            <p class="video-stats">1.2M views • 2 days ago</p>
+            <span class="video-duration">28:42</span> <!-- Video length -->
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Orange and Black Bold Modern Fire Car Honest Review YouTube Thumbnail.png" alt="Video 2 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Another Video</h3>
+            <p class="channel-name">Another Channel</p>
+            <p class="video-stats">850K views • 1 week ago</p>
+            <span class="video-duration">18:34</span> <!-- Video length -->
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="cc.png" alt="Video 3 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Learning Node</h3>
+            <p class="channel-name">Tech Guru</p>
+            <p class="video-stats">540K views • 3 weeks ago</p>
+            <span class="video-duration">40:05</span> <!-- Video length -->
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Green Yellow and White Travel Vlog YouTube Thumbnail.png" alt="Video 4 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Tech Innovations</h3>
+            <p class="channel-name">Innovate Now</p>
+            <p class="video-stats">2M views • 1 month ago</p>
+            <span class="video-duration">45:05</span> <!-- Video length -->
+          </div>
+        </a>
+      </div>
+    </div>
+
+      
+    </div>
+    
+    <div class="video-grid">
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Blue Orange Black Soft Cream Simple Minimalist Class Course Lecturer Presentation Template.png" alt="Video 1 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Sample Video 1</h3>
+            <p class="channel-name">Channel Name</p>
+            <p class="video-stats">1.2M views • 2 days ago</p>
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Neon Green Dark Modern Fitness YouTube Thumbnail.png" alt="Video 2 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Another Video</h3>
+            <p class="channel-name">Another Channel</p>
+            <p class="video-stats">850K views • 1 week ago</p>
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="b.png" alt="Video 3 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Learning Node</h3>
+            <p class="channel-name">Tech Guru</p>
+            <p class="video-stats">540K views • 3 weeks ago</p>
+          </div>
+        </a>
+      </div>
+      
+      <div class="video-card">
+        <a href="Video.html">
+          <img src="Orange and Black Bold Modern Fire Car Honest Review YouTube Thumbnail.png" alt="Video 4 Thumbnail" />
+          <div class="video-info">
+            <h3 class="video-title">Tech Innovations</h3>
+            <p class="channel-name">Innovate Now</p>
+            <p class="video-stats">2M views • 1 month ago</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+      
+    </div>
+
+
+      
+    </div>
+    <script>
+      // Sidebar Toggle
+      document.getElementById("menu-btn").addEventListener("click", function() {
+        document.getElementById("sidebar").style.left = "0";
+      });
+  
+      document.getElementById("close-sidebar").addEventListener("click", function() {
+        document.getElementById("sidebar").style.left = "-250px";
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+    const toggleSwitch = document.getElementById("themeToggle");
+    const body = document.body;
+
+    // Check local storage for theme preference
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark-mode");
+        toggleSwitch.checked = true;
+    }
+
+    toggleSwitch.addEventListener("change", function () {
+        if (this.checked) {
+            body.classList.add("dark-mode");
+            localStorage.setItem("theme", "dark");
+        } else {
+            body.classList.remove("dark-mode");
+            localStorage.setItem("theme", "light");
+        }
+    });
+});
+
+  
+      
+    </script>
+  </section>
+
+  <script src="cjss.js"></script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EduFlix - Profile</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="eduflix.png">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fafafa;
+      color: #333;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    /* Header */
+    header {
+      background: #2c2c2c;
+      color: #f1f1f1;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #f1f1f1;
+    }
+    .logo img {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      color: #f1f1f1;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #cfcfcf;
+    }
+    /* Profile Header */
+    .profile-header {
+      position: relative;
+      height: 300px;
+      background: linear-gradient(135deg, #e0e0e0, #f7f7f7);
+      border-bottom: 1px solid #ddd;
+      overflow: hidden;
+    }
+    .cover-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+    .profile-info {
+      position: absolute;
+      bottom: 20px;
+      left: 30px;
+      color: #333;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    }
+    .profile-info .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .profile-info h1 {
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
+    .profile-info p {
+      font-size: 1em;
+      margin-bottom: 10px;
+    }
+    .social-stats {
+      display: flex;
+      gap: 20px;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .social-stats div {
+      text-align: center;
+    }
+    .edit-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-weight: 500;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .edit-btn:hover {
+      background: #f0f0f0;
+      border-color: #999;
+    }
+    /* Profile Tabs */
+    .profile-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px 0;
+      border-bottom: 2px solid #ddd;
+    }
+    .profile-tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.3s, border-bottom 0.3s;
+      color: #777;
+    }
+    .profile-tab.active {
+      color: #2c2c2c;
+      border-bottom: 2px solid #2c2c2c;
+    }
+    /* Tab Content */
+    .tab-content {
+      padding: 20px;
+      min-height: 300px;
+    }
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+    /* Video Grid */
+    .video-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    .video-card {
+      background: #fff;
+      width: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .video-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .video-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .video-info {
+      padding: 10px;
+    }
+    .video-info h3 {
+      font-size: 1.1em;
+      margin-bottom: 5px;
+    }
+    .video-info p {
+      font-size: 0.9em;
+      color: #777;
+    }
+    /* Footer */
+    footer {
+      background: #2c2c2c;
+      color: #f1f1f1;
+      text-align: center;
+      padding: 15px 30px;
+      margin-top: 30px;
+      font-size: 0.9em;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .profile-header {
+        height: 250px;
+      }
+      .profile-info h1 {
+        font-size: 1.6em;
+      }
+      .profile-info p {
+        font-size: 0.9em;
+      }
+      .video-card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="eduflix.png" alt="EduFlix Logo">
+      EduFlix
+    </div>
+    <nav>
+      <a href="home page.html">Home</a>
+     
+    </nav>
+  </header>
+
+  <!-- Profile Header -->
+  <section class="profile-header">
+    <img class="cover-photo" src="cover.jpg" alt="Cover Photo">
+    <div class="profile-info">
+      <img class="avatar" src="avatar.jpg" alt="User Avatar">
+      <h1>John Doe</h1>
+      <p>Passionate Educator & Content Creator</p>
+      <div class="social-stats">
+        <div><strong>2.3K</strong><br>Subscribers</div>
+        <div><strong>150</strong><br>Videos</div>
+        <div><strong>5.7K</strong><br>Likes</div>
+      </div>
+      <a href="#" class="edit-btn">Edit Profile</a>
+    </div>
+  </section>
+
+  <!-- Profile Tabs -->
+  <div class="profile-tabs">
+    <div class="profile-tab active" data-tab="uploaded">Uploaded Videos</div>
+    <div class="profile-tab" data-tab="liked">Liked Videos</div>
+    <div class="profile-tab" data-tab="playlists">Playlists</div>
+    <div class="profile-tab" data-tab="subscriptions">Subscriptions</div>
+    <div class="profile-tab" data-tab="comments">Comments</div>
+    <div class="profile-tab" data-tab="settings">Settings</div>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+    <!-- Uploaded Videos -->
+    <div id="uploaded" class="tab-panel active">
+      <div class="video-grid">
+        <div class="video-card">
+          <a href="/video/1">
+            <img src="Thumbnail.png" alt="Video 1 Thumbnail">
+            <div class="video-info">
+              <h3>Sample Video 1</h3>
+              <p>Channel: EduFlix Official</p>
+              <p>1.2M views • 2 days ago</p>
+            </div>
+          </a>
+        </div>
+        <!-- More video cards can be added here -->
+      </div>
+    </div>
+    <!-- Liked Videos -->
+    <div id="liked" class="tab-panel">
+      <p style="text-align: center;">No liked videos yet.</p>
+    </div>
+    <!-- Playlists -->
+    <div id="playlists" class="tab-panel">
+      <p style="text-align: center;">No playlists created yet.</p>
+    </div>
+    <!-- Subscriptions -->
+    <div id="subscriptions" class="tab-panel">
+      <p style="text-align: center;">Not subscribed to any channels yet.</p>
+    </div>
+    <!-- Comments -->
+    <div id="comments" class="tab-panel">
+      <p style="text-align: center;">No comments posted yet.</p>
+    </div>
+    <!-- Settings -->
+    <div id="settings" class="tab-panel">
+      <p style="text-align: center;">Profile settings coming soon.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 EduFlix. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Tab Functionality -->
+  <script>
+    const tabs = document.querySelectorAll('.profile-tab');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        // Remove active class from all tabs and panels
+        tabs.forEach(t => t.classList.remove('active'));
+        tabPanels.forEach(panel => panel.classList.remove('active'));
+
+        // Set active tab and display corresponding panel
+        this.classList.add('active');
+        const tabName = this.getAttribute('data-tab');
+        document.getElementById(tabName).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

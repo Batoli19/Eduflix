@@ -1,0 +1,341 @@
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Login Wrapper */
+  .login-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Login Container */
+  .login-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px 30px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 1s ease;
+  }
+  
+  /* Fade In Animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Logo Container */
+  .logo-container {
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 80px;
+    height: auto;
+  }
+  
+  /* Heading */
+  .login-container h1 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form Styling */
+  .login-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-container form input[type="email"],
+  .login-container form input[type="password"] {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+  }
+  
+  .login-container form button {
+    padding: 12px;
+    background: #2575fc;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .login-container form button:hover {
+    background: #0fa192;
+  }
+  
+  /* Links Styling */
+  .login-links {
+    margin-top: 20px;
+  }
+  
+  .login-links a {
+    text-decoration: none;
+    color: #2575fc;
+    margin: 0 10px;
+    font-size: 0.9em;
+  }
+  
+  .login-links a:hover {
+    text-decoration: underline;
+  }
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Wrapper for centering content */
+  .signup-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Signup Container */
+  .signup-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px 30px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 1s ease;
+  }
+  
+  /* Fade In Animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Logo Container */
+  .logo-container {
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 80px;
+    height: auto;
+  }
+  
+  /* Heading */
+  .signup-container h1 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form Styling */
+  .signup-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .signup-container form input[type="text"],
+  .signup-container form input[type="email"],
+  .signup-container form input[type="password"] {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+  }
+  
+  /* Button Styling */
+  .signup-container form button {
+    padding: 12px;
+    background: #2575fc;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .signup-container form button:hover {
+    background: #0fa192;
+  }
+  
+  /* Links Styling */
+  .signup-links {
+    margin-top: 20px;
+  }
+  
+  .signup-links a {
+    text-decoration: none;
+    color: #2575fc;
+    font-size: 0.9em;
+  }
+  
+  .signup-links a:hover {
+    text-decoration: underline;
+  }
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #333;
+}
+
+/* Wrapper for centering */
+.login-wrapper {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+/* Login Container Card */
+.login-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeInUp 0.8s ease;
+}
+
+/* Fade In Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Logo Container */
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo-container img {
+  width: 120px;
+  height: auto;
+}
+
+/* Heading */
+.login-container h1 {
+  margin-bottom: 30px;
+  font-size: 1.8em;
+  color: #2575fc;
+}
+
+/* Input Group */
+.input-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s;
+  background: #f9f9f9;
+}
+
+.input-group input:focus {
+  border-color: #2575fc;
+}
+
+.input-group label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  pointer-events: none;
+  font-size: 1em;
+  color: #aaa;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 8px;
+  font-size: 0.8em;
+  color: #2575fc;
+  background: #fff;
+  padding: 0 4px;
+}
+
+/* Submit Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+/* Links Section */
+.login-links {
+  margin-top: 20px;
+  font-size: 0.9em;
+}
+
+.login-links a {
+  color: #2575fc;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+
+.login-links a:hover {
+  color: #6a11cb;
+}
+
+.login-links span {
+  color: #ccc;
+}
+    

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduFlix - Upload Video</title>
+
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Styles -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #222;
+      color: #fff;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+
+    .logo img {
+      width: 50px;
+      margin-right: 10px;
+    }
+
+    .upload-container {
+      max-width: 600px;
+      background: #fff;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2575fc;
+    }
+
+    .drop-area {
+      border: 2px dashed #2575fc;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      background: #f0f8ff;
+      cursor: pointer;
+    }
+
+    .drop-area:hover {
+      background: #e0efff;
+    }
+
+    .drop-area p {
+      font-size: 1.2em;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .video-preview {
+      display: none;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .video-preview video {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .form-group {
+      margin: 15px 0;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #2575fc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+
+    button:hover {
+      background: #1a5ed9;
+    }
+
+    .progress-bar {
+      display: none;
+      width: 100%;
+      background: #ddd;
+      height: 8px;
+      border-radius: 5px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: #2575fc;
+    }
+
+    .thumbnail-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .thumbnail-options img {
+      width: 100px;
+      height: 60px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .thumbnail-options img:hover {
+      border: 2px solid #2575fc;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="eduflix.png" alt="EduFlix Logo">
+      EduFlix Upload
+    </div>
+  </header>
+
+  <!-- Upload Form -->
+  <div class="upload-container">
+    <h1>Upload Your Video</h1>
+
+    <!-- Drag & Drop -->
+    <div class="drop-area" id="dropArea">
+      <i class="fas fa-cloud-upload-alt" style="font-size: 3em; color: #2575fc;"></i>
+      <p>Drag & Drop Video or Click to Upload</p>
+      <input type="file" id="videoFile" accept="video/*">
+    </div>
+
+    <!-- Video Preview -->
+    <div class="video-preview" id="videoPreview">
+      <video controls id="previewVideo"></video>
+    </div>
+
+    <!-- Video Details Form -->
+    <form id="uploadForm">
+      <div class="form-group">
+        <label>Title:</label>
+        <input type="text" id="videoTitle" placeholder="Enter video title" required>
+      </div>
+
+      <div class="form-group">
+        <label>Description:</label>
+        <textarea id="videoDescription" placeholder="Write something about the video..." rows="4"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Category:</label>
+        <select id="videoCategory">
+          <option>Education</option>
+          <option>Technology</option>
+          <option>Tutorials</option>
+          <option>Entertainment</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Privacy:</label>
+        <select id="videoPrivacy">
+          <option>Public</option>
+          <option>Private</option>
+          <option>Unlisted</option>
+        </select>
+      </div>
+
+      <!-- Thumbnail Selection -->
+      <div class="form-group">
+        <label>Choose Thumbnail:</label>
+        <div class="thumbnail-options">
+          <img src="thumbnail1.png" class="thumbnail">
+          <img src="thumbnail2.png" class="thumbnail">
+          <img src="thumbnail3.png" class="thumbnail">
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-bar" id="progressBar">
+        <div class="progress" id="progress"></div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit">Upload Video</button>
+    </form>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const dropArea = document.getElementById("dropArea");
+    const videoFileInput = document.getElementById("videoFile");
+    const previewVideo = document.getElementById("previewVideo");
+    const videoPreview = document.getElementById("videoPreview");
+    const uploadForm = document.getElementById("uploadForm");
+    const progressBar = document.getElementById("progressBar");
+    const progress = document.getElementById("progress");
+
+    // Drag & Drop Event
+    dropArea.addEventListener("click", () => videoFileInput.click());
+    videoFileInput.addEventListener("change", handleFile);
+
+    function handleFile(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const videoURL = URL.createObjectURL(file);
+        previewVideo.src = videoURL;
+        videoPreview.style.display = "block";
+      }
+    }
+
+    // Handle Form Submission
+    uploadForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Simulate Upload
+      progressBar.style.display = "block";
+      let progressVal = 0;
+      const interval = setInterval(() => {
+        progressVal += 10;
+        progress.style.width = progressVal + "%";
+        if (progressVal >= 100) {
+          clearInterval(interval);
+          alert("Upload Successful!");
+        }
+      }, 300);
+    });
+  </script>
+</body>
+</html>

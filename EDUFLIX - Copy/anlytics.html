@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Analytics Dashboard</title>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Global Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #f4f6f8;
+      color: #333;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    header, footer {
+      background: #222;
+      color: #fff;
+      padding: 15px 30px;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+    nav {
+      margin-top: 10px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    nav a {
+      color: #fff;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+    }
+    main {
+      padding: 30px;
+    }
+    h1, h2, h3 {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    /* Summary Cards */
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .card {
+      flex: 1 1 200px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .card h2 {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 1.6em;
+      font-weight: bold;
+    }
+    /* Charts Section */
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .chart-container {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    /* Top Videos Table */
+    .top-videos {
+      margin-bottom: 40px;
+    }
+    .top-videos table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .top-videos th, .top-videos td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+    .top-videos th {
+      background: #2575fc;
+      color: #fff;
+    }
+    .trend-up {
+      color: #28a745;
+      font-weight: bold;
+    }
+    .trend-down {
+      color: #dc3545;
+      font-weight: bold;
+    }
+    .trend-stable {
+      color: #ffc107;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+   
+    
+      
+      EduFlix Analytics
+    </div>
+    
+    <nav>
+      <a href="home page.html">Home</a>
+      <a href="Upload.html">Upload</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+  
+  <!-- Main Content -->
+  <main>
+    <h1>video Analytics Dashboard</h1>
+    
+    <!-- Summary Cards -->
+    <section class="summary">
+      <div class="card">
+        <h2>Total Views</h2>
+        <p id="totalViews">25,840</p>
+      </div>
+      <div class="card">
+        <h2>Total Likes</h2>
+        <p id="totalLikes">3,560</p>
+      </div>
+      <div class="card">
+        <h2>Engagement Score</h2>
+        <p id="engagementScore">78</p>
+      </div>
+      <div class="card">
+        <h2>Conversion Rate</h2>
+        <p id="conversionRate">14%</p>
+      </div>
+    </section>
+    
+    <!-- Charts Section -->
+    <section class="charts">
+      <!-- Line Chart: Views Over Time -->
+      <div class="chart-container">
+        <h3>Views Over Time</h3>
+        <canvas id="viewsLineChart"></canvas>
+      </div>
+      <!-- Bar Chart: Likes Per Video -->
+      <div class="chart-container">
+        <h3>Likes Per Video</h3>
+        <canvas id="likesBarChart"></canvas>
+      </div>
+      <!-- Doughnut Chart: Engagement Distribution -->
+      <div class="chart-container">
+        <h3>Engagement Distribution</h3>
+        <canvas id="engagementDoughnutChart"></canvas>
+      </div>
+      <!-- Radar Chart: Video Performance Metrics -->
+      <div class="chart-container">
+        <h3>Video Performance</h3>
+        <canvas id="performanceRadarChart"></canvas>
+      </div>
+    </section>
+    
+    <!-- Top Videos Table -->
+    <section class="top-videos">
+      <h2>Top Videos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Video Title</th>
+            <th>Views</th>
+            <th>Likes</th>
+            <th>Engagement</th>
+            <th>Trend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Intro to JavaScript</td>
+            <td>8,450</td>
+            <td>980</td>
+            <td>85</td>
+            <td class="trend-up">↑</td>
+          </tr>
+          <tr>
+            <td>Advanced CSS Techniques</td>
+            <td>6,230</td>
+            <td>750</td>
+            <td>78</td>
+            <td class="trend-stable">→</td>
+          </tr>
+          <tr>
+            <td>Node.js Crash Course</td>
+            <td>5,120</td>
+            <td>630</td>
+            <td>70</td>
+            <td class="trend-down">↓</td>
+          </tr>
+          <tr>
+            <td>React Hooks Explained</td>
+            <td>4,040</td>
+            <td>540</td>
+            <td>65</td>
+            <td class="trend-up">↑</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MyVideo Analytics. All rights reserved.</p>
+  </footer>
+  
+  <!-- JavaScript for Charts -->
+  <script>
+    // Views Over Time - Line Chart
+    const viewsCtx = document.getElementById('viewsLineChart').getContext('2d');
+    new Chart(viewsCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Views',
+          data: [3200, 4100, 3800, 4500, 5000, 4700, 5840],
+          backgroundColor: 'rgba(37, 117, 252, 0.2)',
+          borderColor: '#2575fc',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Likes Per Video - Bar Chart
+    const likesCtx = document.getElementById('likesBarChart').getContext('2d');
+    new Chart(likesCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Video 1', 'Video 2', 'Video 3', 'Video 4'],
+        datasets: [{
+          label: 'Likes',
+          data: [980, 750, 630, 540],
+          backgroundColor: ['#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0'],
+          borderColor: ['#e55370', '#2c8bb7', '#e0b045', '#389e9b'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Engagement Distribution - Doughnut Chart
+    const engagementCtx = document.getElementById('engagementDoughnutChart').getContext('2d');
+    new Chart(engagementCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Views', 'Likes', 'Comments', 'Shares'],
+        datasets: [{
+          data: [5840, 3560, 480, 320],
+          backgroundColor: ['#2575fc', '#ff6384', '#ffcd56', '#36a2eb'],
+          borderColor: '#fff',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+
+    // Video Performance - Radar Chart
+    const performanceCtx = document.getElementById('performanceRadarChart').getContext('2d');
+    new Chart(performanceCtx, {
+      type: 'radar',
+      data: {
+        labels: ['Quality', 'Engagement', 'Reach', 'Conversion', 'Retention'],
+        datasets: [{
+          label: 'Performance Score',
+          data: [85, 78, 90, 65, 80],
+          backgroundColor: 'rgba(37, 117, 252, 0.2)',
+          borderColor: '#2575fc',
+          pointBackgroundColor: '#2575fc',
+          pointBorderColor: '#fff',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 100,
+            ticks: { stepSize: 20 }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
